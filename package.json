@@ -1,0 +1,27 @@
+{
+	"name": "express-api-starter",
+	"version": "1.0.0",
+	"description": "ExpressJS RESTful API Starter",
+	"main": "app.js",
+	"scripts": {
+		"start": "node app.js"
+	},
+	"keywords": [
+		"expressjs",
+		"restful-api",
+		"express-starter",
+		"express-restful"
+	],
+	"author": "Agung Dirgantara <agungmasda29@gmail.com>",
+	"license": "MIT",
+	"dependencies": {
+		"compression": "^1.7.4",
+		"cookie-parser": "^1.4.6",
+		"cors": "^2.8.5",
+		"dotenv": "^10.0.0",
+		"express": "^4.17.2",
+		"express-session": "^1.17.2",
+		"http-errors": "^2.0.0",
+		"request-ip": "^2.1.3"
+	}
+}
