@@ -7,6 +7,6 @@ router.get('/', (req, res) => {
 		app_version: process.env.APP_VERSION,
 		app_vendor: process.env.APP_VENDOR
 	});
-})
+});
 
 module.exports = router;
