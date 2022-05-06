@@ -1,1 +1,1 @@
-# Express RESTful Server | Medan Software
+# Express RESTful Server + Sequelize ORM | Medan Software
