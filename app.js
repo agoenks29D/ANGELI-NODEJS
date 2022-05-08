@@ -4,11 +4,15 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const app = express();
+const uuid = require('uuid');
 const http = require('http').createServer(app);
 const async = require('async');
 const cookie_parser  = require('cookie-parser');
 const express_session = require('express-session');
+const express_socketio_session = require('express-socket.io-session');
+const SessionFileStore = require('session-file-store')(express_session);
 const session = express_session({
+	store: new SessionFileStore(),
 	secret: process.env.ENCRYPTION_KEY,
 	resave: true,
 	saveUninitialized: true,
@@ -18,9 +22,25 @@ const request_ip = require('request-ip');
 const http_errors = require('http-errors');
 const cors = require('cors');
 const compression = require('compression');
+const io = require('socket.io')(http, {
+	path: '/ws',
+	credentials: true,
+	allowRequest: (req, callback) => callback(null, true)
+});
+const moment_timezone = require('moment-timezone');
+const moment_duration = require('moment-duration-format');
 
+global.io = io;
 global.DB;
 global.Models;
+global.Joi = require('joi');
+global.moment = require('moment');
+global.webpush = require('web-push');
+global.cronjob = require('node-cron');
+global.CryptoJS = require('crypto-js');
+global.Middlewares = require(__dirname+'/middlewares');
+
+io.engine.generateId = () => uuid.v4();
 
 async.waterfall([
 	// Initialize database using sequelize
@@ -32,6 +52,18 @@ async.waterfall([
 	if (!error) {
 
 		DB = result;
+
+		moment.tz.setDefault(process.env.TIMEZONE || 'Asia/Jakarta');
+		webpush.setVapidDetails('mailto:'+process.env.DEVELOPER_EMAIL, process.env.publicVapidKey, process.env.privateVapidKey);
+
+		var websockets = require(__dirname+'/websockets');
+		Object.keys(websockets).forEach((namespace) => {
+			if (namespace == 'root') {
+				namespace = '/';
+			}
+
+			io.of(namespace).use(express_socketio_session(session, { autoSave: true }));
+		});
 
 		/**
 		 * API setup
@@ -54,6 +86,12 @@ async.waterfall([
 				next();
 		});
 
+		app.use(Middlewares.session.identify);
+
+		app.get('/', (req, res) => {
+			res.sendFile(path.join(__dirname, '/index.html'));
+		});
+
 		/**
 		 * API Routing V1
 		 */
@@ -74,7 +112,7 @@ async.waterfall([
 			res.json({ status: 'error', code: error_status, message: error_message });
 		});
 	} else {
-		console.log(error)
+		console.log(error);
 	}
 });
 

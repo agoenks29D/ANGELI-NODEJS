@@ -21,7 +21,7 @@ module.exports.password = '';
 /**
  * DB name
  */
-module.exports.database = 'express-api-starter';
+module.exports.database = 'angeli';
 
 /**
  * DB Driver
