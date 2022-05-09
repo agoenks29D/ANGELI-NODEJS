@@ -6,7 +6,7 @@ module.exports = function(DataTypes) {
 				primaryKey: true,
 				autoIncrement: true
 			},
-			'session-uid' : {
+			'uid' : {
 				type: DataTypes.UUID,
 				unique: true,
 				allowNull: false,
@@ -39,6 +39,10 @@ module.exports = function(DataTypes) {
 				allowNull: true
 			},
 			referer: {
+				type: DataTypes.STRING,
+				allowNull: true
+			},
+			'referer-domain': {
 				type: DataTypes.STRING,
 				allowNull: true
 			},
