@@ -35,6 +35,9 @@ module.exports = function(DataTypes) {
 		associate: [
 			{ type: 'belongsTo', model: 'session-identifier', foreignKey: 'session-identifier-id', targetKey: 'id' },
 			{ type: 'hasMany', model: 'identified-browser', foreignKey: 'device-id' },
-		]
+		],
+		config: {
+			updatedAt: false
+		}
 	}
 }

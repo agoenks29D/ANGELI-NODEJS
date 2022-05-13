@@ -10,7 +10,15 @@ module.exports = function(DataTypes) {
 				type: DataTypes.UUID,
 				unique: true,
 				allowNull: false
+			},
+			count: {
+				type: DataTypes.INTEGER,
+				allowNull: false,
+				defaultValue: 1
 			}
+		},
+		config: {
+			timestamps: false
 		}
 	}
 }

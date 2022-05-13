@@ -71,12 +71,12 @@ module.exports = function(DataTypes) {
 				allowNull: false
 			}
 		},
-		config: {
-			timestamps: false
-		},
 		associate: [
 			{ type: 'hasOne', model: 'identified-device', foreignKey: 'session-identifier-id' },
 			{ type: 'hasOne', model: 'identified-browser', foreignKey: 'session-identifier-id' }
-		]
+		],
+		config: {
+			timestamps: false
+		}
 	}
 }
