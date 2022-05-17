@@ -25,6 +25,7 @@ module.exports = function(DataTypes) {
 		},
 		associate: [
 			{ type: 'hasMany', model: 'user', foreignKey: 'role-id' },
+			{ type: 'hasMany', model: 'privilege', foreignKey: 'role-id' }
 		],
 		config: {
 			paranoid: true

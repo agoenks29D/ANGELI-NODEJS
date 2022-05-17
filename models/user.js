@@ -40,7 +40,8 @@ module.exports = function(DataTypes) {
 			}
 		},
 		associate: [
-			{ type: 'belongsTo', model: 'role', foreignKey: 'role-id' }
+			{ type: 'belongsTo', model: 'role', foreignKey: 'role-id' },
+			{ type: 'hasMany', model: 'privilege', foreignKey: 'user-id' }
 		],
 		config: {
 			paranoid: true
