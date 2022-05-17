@@ -22,6 +22,10 @@ module.exports = function(DataTypes) {
 				allowNull: false,
 				defaultValue: false
 			},
+			'user-id': {
+				type: DataTypes.BIGINT.UNSIGNED,
+				allowNull: true
+			},
 			'ip-address': {
 				type: DataTypes.CHAR(15),
 				allowNull: false
@@ -72,6 +76,7 @@ module.exports = function(DataTypes) {
 			}
 		},
 		associate: [
+			{ type: 'belongsTo', model: 'user', foreignKey: 'user-id' },
 			{ type: 'hasOne', model: 'identified-device', foreignKey: 'session-identifier-id' },
 			{ type: 'hasOne', model: 'identified-browser', foreignKey: 'session-identifier-id' }
 		],

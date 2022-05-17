@@ -11,8 +11,13 @@ module.exports = function(DataTypes) {
 				unique: true,
 				allowNull: false
 			},
+			'logged-in' : {
+				type: DataTypes.BOOLEAN,
+				allowNull: false,
+				defaultValue: false
+			},
 			count: {
-				type: DataTypes.INTEGER,
+				type: DataTypes.INTEGER(6),
 				allowNull: false,
 				defaultValue: 1
 			}
