@@ -53,6 +53,25 @@ async.waterfall([
 
 		DB = result;
 
+		Models.online.destroy({ truncate: true });
+		Models.user.count().then(async length => {
+			if (length < 1) {
+				if (await Models.role.count() < 1) {
+					var role = await Models.role.create({
+						uid: 'admin',
+						name: 'ADMIN',
+						description: 'The administrator',
+						status: 'active'
+					});
+				} else {
+					var role = await Models.role.findOne();
+				}
+
+				const sha1 = require('crypto-js/sha1');
+				await Models.user.create({ 'role-id': role.id, 'full-name': 'ADMINISTRATOR', username: 'admin', password: sha1('admin').toString() });
+			}
+		});
+
 		moment.tz.setDefault(process.env.TIMEZONE || 'Asia/Jakarta');
 		webpush.setVapidDetails('mailto:'+process.env.DEVELOPER_EMAIL, process.env.publicVapidKey, process.env.privateVapidKey);
 
