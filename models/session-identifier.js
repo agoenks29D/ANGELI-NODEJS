@@ -6,7 +6,7 @@ module.exports = function(DataTypes) {
 				primaryKey: true,
 				autoIncrement: true
 			},
-			'uid' : {
+			'uid': {
 				type: DataTypes.UUID,
 				unique: true,
 				allowNull: false,

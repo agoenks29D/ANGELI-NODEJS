@@ -6,7 +6,7 @@ module.exports = function(DataTypes) {
 				primaryKey: true,
 				autoIncrement: true
 			},
-			'session-identifier-id' : {
+			'session-identifier-id': {
 				type: DataTypes.BIGINT.UNSIGNED,
 				allowNull: false
 			},

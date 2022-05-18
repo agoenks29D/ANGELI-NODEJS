@@ -6,12 +6,12 @@ module.exports = function(DataTypes) {
 				primaryKey: true,
 				autoIncrement: true
 			},
-			'session-uid' : {
+			'session-uid': {
 				type: DataTypes.UUID,
 				unique: true,
 				allowNull: false
 			},
-			'logged-in' : {
+			'logged-in': {
 				type: DataTypes.BOOLEAN,
 				allowNull: false,
 				defaultValue: false
